@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="UTF-8">
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+ <title>main 홈</title>
+ <link rel="stylesheet" type="text/css" href="halfviz.css"/>
+</head>
+<body>
+     
+     <div id="halfviz">
+        <canvas id="viewport" width="800" height="600"></canvas>
+        <div id="editor">
+            <div id="synonyms">
+                <form method="post" action="keyword_check.jsp">
+                    <tr>
+                        <td>
+                            <input type="text" id="main_search" value="검색어" name="keyword"/>
+                        </td>
+                        <td>
+                            <input type="submit" value="검색" id="btn-2">
+                        </td>
+                    </tr>
+                </form>
+            </div>
+            <div id="news_data"></div>
+        </div>
+        <div id="grabber"></div>
+      </div>  
+</body>
+</html>

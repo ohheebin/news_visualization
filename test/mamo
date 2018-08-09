@@ -1,0 +1,168 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+
+<%@ page import = "java.sql.*" %>
+
+<%
+request.setCharacterEncoding("UTF-8");
+String nouns = (String)session.getAttribute("S_noun");
+Connection conn = null;                                        // null로 초기화 한다.
+PreparedStatement pstmt = null;
+Statement stmt = null;
+ResultSet rs = null;
+ResultSet rs1 = null;
+ResultSet rs2 = null;
+ResultSet rs3 = null;
+ResultSet rs4 = null;
+ResultSet rs5 = null;
+String search_noun = "";
+String synonyms1 = "";
+String synonyms2 = "";
+String synonyms3 = "";
+String synonyms4 = "";
+String synonyms5 = "";
+
+try{
+
+        String user_url = "jdbc:mysql://localhost:3306/news";
+        String id = "root";
+        String pw = "140508";
+
+        Class.forName("com.mysql.jdbc.Driver");
+        conn=DriverManager.getConnection(user_url,id,pw);
+
+        stmt = conn.createStatement();
+        String query = "select noun, synonyms_1, synonyms_2, synonyms_3, synonyms_4, synonyms_5 from word2vec where noun=\"";
+        query += nouns;
+        query += "\"";
+        rs = stmt.executeQuery(query);
+
+        while(rs.next()){
+            search_noun = rs.getString("noun");
+            synonyms1 = rs.getString("synonyms_1");
+            synonyms2 = rs.getString("synonyms_2");
+            synonyms3 = rs.getString("synonyms_3");
+            synonyms4 = rs.getString("synonyms_4");
+            synonyms5 = rs.getString("synonyms_5");
+        }
+%>
+<!DOCTYPE html>
+<html>
+    <title>메인 화면</title>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="mainStyle.css"/>
+    </head>
+</head>
+<body>
+     <div id="container">
+         <div id="header">
+            <a id="title" onclick="gohome()">News Visualization</a>
+         </div>
+         <div id="content">
+            <% while(rs.next()){%>
+            <div class="circle-text" style="left: 600px; top: 300px;">
+                <%=rs.getString("noun")%>
+            </div>
+            <div class="circle-text" style="left: 350px; top: 170px;">
+                <%=rs.getString("synonyms_1")%>
+            </div>
+            <div class="circle-text" style="left: 500px; top: 100px;">
+                <%=rs.getString("synonyms_2")%>
+            </div>
+            <div class="circle-text" style="left: 600px; top: 300px;">
+                <%=rs.getString("synonyms_3")%>
+            </div>
+            <div class="circle-text" style="left: 10px; top: 530px;">
+                <%=rs.getString("synonyms_4")%>
+            </div>
+            <div class="circle-text" style="left: 400px; top: 600px;">
+                <%=rs.getString("synonyms_5")%>
+            </div>
+            <svg height="600" width="1100">
+                <line x1="650" y1="250" x2="470" y2="100" id="line"/>
+                <line x1="650" y1="250" x2="740" y2="50" id="line"/>
+                <line x1="650" y1="250" x2="950" y2="250" id="line"/>
+                <line x1="650" y1="250" x2="450" y2="500" id="line"/>
+                <line x1="650" y1="250" x2="950" y2="550" id="line"/>
+            </svg>
+                <%
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        %>
+         </div>
+         <div id="sideinfo">
+               <div id="synonyms">
+
+                        <form method="post" action="keyword_check.jsp">
+                            <tr>
+                                <td>
+                                    <input type="text" id="main_search" value="<%=nouns%>" name="keyword"/>
+                                </td>
+                                <td>
+                                    <input type="submit" value="검색" class="btn-2">
+                                </td>
+                            </tr>
+                        </form>
+                </div>
+                <div id="news_data">
+            <%
+            try{
+                String user_url = "jdbc:mysql://localhost:3306/news";
+                String id = "root";
+                String pw = "140508";
+
+                Class.forName("com.mysql.jdbc.Driver");
+                conn=DriverManager.getConnection(user_url,id,pw);
+
+                stmt = conn.createStatement();
+                String query = "select * from data where title Like '%"+nouns+"%';";
+                rs = stmt.executeQuery(query);
+
+                while(rs.next()){
+                    %>
+                    <a href="<%=rs.getString("url")%>" target="_blank" id="news" style="display: none;"><%=rs.getString("title")%></a><br>
+                    <%
+
+
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            %>
+               </div>
+         </div>
+         <div id="footer"></div>
+     </div>
+     <script type="text/javascript" src="myScript.js"></script>
+</body>
+</html>
+
+
+
+            while(rs1.next()){
+                %>
+                <a href="<%=rs1.getString("url")%>" target="_blank" id="news" name="synonyms1_news" style="display: none;"><%=rs1.getString("title")%></a><br>
+                <%
+            }
+            while(rs2.next()){
+                %>
+                <a href="<%=rs2.getString("url")%>" target="_blank" id="news" name="synonyms2_news" style="display: none;"><%=rs2.getString("title")%></a><br>
+                <%
+            }
+            while(rs3.next()){
+                %>
+                <a href="<%=rs3.getString("url")%>" target="_blank" id="news" name="synonyms3_news" style="display: none;"><%=rs3.getString("title")%></a><br>
+                <%
+            }
+            while(rs4.next()){
+                %>
+                <a href="<%=rs4.getString("url")%>" target="_blank" id="news" name="synonyms4_news" style="display: none;"><%=rs4.getString("title")%></a><br>
+                <%
+            }
+            while(rs5.next()){
+                %>
+                <a href="<%=rs5.getString("url")%>" target="_blank" id="news" name="synonyms5_news" style="display: none;"><%=rs5.getString("title")%></a><br>
+                <%
+            }

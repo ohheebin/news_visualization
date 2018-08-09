@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="UTF-8">
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+ <title>main 홈</title>
+ <link rel="stylesheet" type="text/css" href="mainStyle.css"/>
+</head>
+<body>
+     <div id="container">
+         <div id="header">
+            <a id="title">News Visualization</a>
+         </div>
+         <div id="content">
+              <div class="circle-text" style="left: 600px; top: 300px;">
+                  Hello
+              </div>
+              <div class="circle-text" style="left: 350px; top: 170px;">
+                1
+            </div>
+            <div class="circle-text" style="left: 500px; top: 100px;">
+                2
+            </div>
+            <div class="circle-text" style="left: 600px; top: 300px;">
+                3
+            </div>
+            <div class="circle-text" style="left: 10px; top: 530px;">
+                4
+            </div>
+            <div class="circle-text" style="left: 400px; top: 600px;">
+                5
+            </div>
+            <svg height="600" width="1100">
+                <line x1="650" y1="250" x2="470" y2="100" id="line"/>
+                <line x1="650" y1="250" x2="740" y2="50" id="line"/>
+                <line x1="650" y1="250" x2="950" y2="250" id="line"/>
+                <line x1="650" y1="250" x2="450" y2="500" id="line"/>
+                <line x1="650" y1="250" x2="950" y2="550" id="line"/>
+              </svg>
+        </div>
+         <div id="sideinfo">
+            <div id="synonyms">
+                <form method="post" action="keyword_check.jsp">
+                    <tr>
+                        <td>
+                            <input type="text" id="main_search" value="검색어" name="keyword"/>
+                        </td>
+                        <td>
+                            <input type="submit" value="검색" id="btn-2">
+                        </td>
+                    </tr>
+                </form>
+            </div>
+            <div id="news_data"></div>
+         </div>
+         <div id="footer"></div>
+     </div>
+     
+</body>
+</html>
